@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
-    <title>{{ \App\Models\Setting::where('key', 'company_name')->value('value') ?? 'Mi Restaurante' }}</title>
-    
+
+    <title>{{ \App\Models\Setting::where('key', 'company_name')->value('value') ?? 'Mi Restaurante v2' }}</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -24,17 +24,17 @@
             --card-bg: #ffffff;
             --text-main: #1e293b;
             --text-muted: #64748b;
-            
+
             --radius-xl: 24px;
             --radius-md: 16px;
             --radius-sm: 12px;
-            
+
             --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.08);
         }
 
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: var(--light-bg); 
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--light-bg);
             color: var(--text-main);
             font-size: 0.95rem;
             overflow-x: hidden; /* Evita scroll horizontal en body */
@@ -42,11 +42,11 @@
 
         /* === 1. SIDEBAR ESTILO APP === */
         .sidebar {
-            width: 280px; 
-            height: 100vh; 
-            position: fixed; 
+            width: 280px;
+            height: 100vh;
+            position: fixed;
             top: 0; left: 0;
-            background: var(--dark-bg); 
+            background: var(--dark-bg);
             color: white;
             z-index: 1050;
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -59,11 +59,11 @@
             display: flex; align-items: center; gap: 15px;
             flex-shrink: 0; /* No encoger header */
         }
-        
+
         /* SCROLLBAR PERSONALIZADO PARA EL MENÚ */
         .sidebar-menu {
             padding: 10px 15px;
-            flex-grow: 1; 
+            flex-grow: 1;
             overflow-y: auto; /* Habilita scroll vertical */
             scrollbar-width: thin; /* Firefox */
             scrollbar-color: rgba(255,255,255,0.2) transparent;
@@ -96,8 +96,8 @@
         .brand-name { font-weight: 800; font-size: 20px; letter-spacing: -0.5px; color: white; }
 
         .menu-category {
-            color: #94a3b8; font-size: 0.7rem; 
-            text-transform: uppercase; font-weight: 700; 
+            color: #94a3b8; font-size: 0.7rem;
+            text-transform: uppercase; font-weight: 700;
             letter-spacing: 1px; margin: 20px 10px 10px;
         }
 
@@ -111,15 +111,15 @@
             display: flex; align-items: center;
             text-decoration: none;
         }
-        
+
         .nav-link i { font-size: 1.3rem; margin-right: 14px; opacity: 0.7; transition: opacity 0.2s; }
-        
+
         .nav-link:hover {
             background: rgba(255,255,255,0.08);
             color: white;
             transform: translateX(5px);
         }
-        
+
         .nav-link.active {
             background: var(--primary);
             color: white;
@@ -133,7 +133,7 @@
             padding: 20px 30px;
             min-height: 100vh;
             transition: margin-left 0.3s;
-            display: flex; 
+            display: flex;
             flex-direction: column;
         }
 
@@ -224,7 +224,7 @@
 
     <div class="sidebar-menu">
         @php $role = Auth::user()->role; @endphp
-        
+
         @if(in_array($role, ['admin', 'cashier']))
             <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                 <i class="bi bi-grid-1x2-fill"></i> Dashboard
@@ -327,20 +327,20 @@
         </div>
     @endif
 
-    @if(session('success')) 
+    @if(session('success'))
         <div class="alert alert-success border-0 shadow-sm rounded-4 mb-4 d-flex align-items-center bg-white border-start border-5 border-success">
             <i class="bi bi-check-circle-fill fs-4 me-3 text-success"></i>
             <div><strong>¡Éxito!</strong> {{ session('success') }}</div>
             <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
-        </div> 
+        </div>
     @endif
-    
-    @if(session('error')) 
+
+    @if(session('error'))
         <div class="alert alert-danger border-0 shadow-sm rounded-4 mb-4 d-flex align-items-center bg-white border-start border-5 border-danger">
             <i class="bi bi-exclamation-triangle-fill fs-4 me-3 text-danger"></i>
             <div><strong>Error:</strong> {{ session('error') }}</div>
             <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
-        </div> 
+        </div>
     @endif
 
     @yield('content')
